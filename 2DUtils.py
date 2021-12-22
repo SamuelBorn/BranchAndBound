@@ -1,6 +1,10 @@
 import itertools
 
 
+# Solve:
+# min cTx
+# Ax <= b
+
 # all lines ax0 + bx1 + ... <= c are stored as tuples (a,b,...,c)
 
 # ax0 + bx1 >= c are rewritten as -ax0 - bx1 <= -c
@@ -10,7 +14,7 @@ import itertools
 def solve_linprog_2d(function, lines):
     optimal_point = None
     optimal_value = float("inf")
-    for intersection in get_all_intersections(lines):
+    for intersection in get_valid_intersections(lines):
         if evaluate(function, intersection) < optimal_value:
             optimal_point = intersection
             optimal_value = evaluate(function, intersection)
@@ -24,6 +28,22 @@ def evaluate(function, point):
     for m, x in zip(function, point):
         result += m * x
     return result
+
+
+def get_valid_intersections(lines):
+    valid_intersections = []
+    for intersection in get_all_intersections(lines):
+        if is_valid(intersection, lines):
+            valid_intersections.append(intersection)
+    return valid_intersections
+
+
+def is_valid(intersection, lines):
+    print()
+    for line in lines:
+        if evaluate(line[:-1], intersection) > line[-1] + 0.0001:
+            return False
+    return True
 
 
 # returns all intersections of all 2D lines
@@ -60,7 +80,7 @@ def parallel(line_a, line_b):
         return a == 0 and d == 0
     if b == 0 or e == 0:
         return b == 0 and e == 0
-    return abs(a / b - d / e) <= 0.00001
+    return abs(a / b - d / e) <= 0.0001
 
 
 def get_all_pairs(lines):
@@ -68,5 +88,7 @@ def get_all_pairs(lines):
 
 
 if __name__ == '__main__':
-    get_intersection((4, 2, 6), (3, 9, 1))
-    # plt.plot(x,x*m1+b1)
+    mini = (-1, -1)
+    nb = [(1, 2, 10), (2, 1, 10), (-1, 0, 0), (0, -1, 0)]
+    print(f"{get_all_intersections(nb)=}")
+    print(f"{get_valid_intersections(nb)=}")
