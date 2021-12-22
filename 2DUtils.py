@@ -5,16 +5,16 @@ import itertools
 # min cTx
 # Ax <= b
 
-# all lines ax0 + bx1 + ... <= c are stored as tuples (a,b,...,c)
+# all constraints ax0 + bx1 + ... <= c are stored as tuples (a,b,...,c)
 
 # ax0 + bx1 >= c are rewritten as -ax0 - bx1 <= -c
 # ax0 + bx1 = c are rewritten as -ax0 - bx1 <= -c and ax0 + bx1 <= c
 
 
-def solve_linprog_2d(function, lines):
+def solve_linprog_2d(function, constraints):
     optimal_point = None
     optimal_value = float("inf")
-    for intersection in get_valid_intersections(lines):
+    for intersection in get_valid_intersections(constraints):
         if evaluate(function, intersection) < optimal_value:
             optimal_point = intersection
             optimal_value = evaluate(function, intersection)
@@ -30,37 +30,36 @@ def evaluate(function, point):
     return result
 
 
-def get_valid_intersections(lines):
+def get_valid_intersections(constraints):
     valid_intersections = []
-    for intersection in get_all_intersections(lines):
-        if is_valid(intersection, lines):
+    for intersection in get_all_intersections(constraints):
+        if is_valid(intersection, constraints):
             valid_intersections.append(intersection)
     return valid_intersections
 
 
-def is_valid(intersection, lines):
-    print()
-    for line in lines:
+def is_valid(intersection, constraints):
+    for line in constraints:
         if evaluate(line[:-1], intersection) > line[-1] + 0.0001:
             return False
     return True
 
 
-# returns all intersections of all 2D lines
-def get_all_intersections(lines):
+# returns all intersections of all 2D constraints
+def get_all_intersections(constraints):
     intersections = []
-    for line_a, line_b in get_all_pairs(lines):
-        if not parallel(line_a, line_b):
-            intersections.append(get_intersection(line_a, line_b))
+    for constraint_a, constraint_b in get_all_pairs(constraints):
+        if not parallel(constraint_a, constraint_b):
+            intersections.append(get_intersection(constraint_a, constraint_b))
     return intersections
 
 
-# returns the intersection of two 2D lines
-def get_intersection(line_a, line_b):
-    assert not parallel(line_a, line_b)
+# returns the intersection of two 2D constraints
+def get_intersection(constraint_a, constraint_b):
+    assert not parallel(constraint_a, constraint_b)
 
-    a, b, c = line_a
-    d, e, f = line_b
+    a, b, c = constraint_a
+    d, e, f = constraint_b
 
     x, y = None, None
     if b == 0:  # e != 0 or parallel, a != 0 or 0x+0y not a line
@@ -72,10 +71,10 @@ def get_intersection(line_a, line_b):
     return x, y
 
 
-# checks if two 2D lines are parallel
-def parallel(line_a, line_b):
-    a, b, c = line_a
-    d, e, f = line_b
+# checks if two 2D constraints are parallel
+def parallel(constraint_a, constraint_b):
+    a, b, c = constraint_a
+    d, e, f = constraint_b
     if a == 0 or d == 0:
         return a == 0 and d == 0
     if b == 0 or e == 0:
@@ -83,12 +82,13 @@ def parallel(line_a, line_b):
     return abs(a / b - d / e) <= 0.0001
 
 
-def get_all_pairs(lines):
-    return list(itertools.combinations(lines, 2))
+def get_all_pairs(constraints):
+    return list(itertools.combinations(constraints, 2))
 
 
 if __name__ == '__main__':
-    mini = (-1, -1)
-    nb = [(1, 2, 10), (2, 1, 10), (-1, 0, 0), (0, -1, 0)]
-    print(f"{get_all_intersections(nb)=}")
-    print(f"{get_valid_intersections(nb)=}")
+    fun = (-1, -1)
+    cons = [(1, 2, 10), (2, 1, 10), (-1, 0, 0), (0, -1, 0)]
+    print(f"{get_all_intersections(cons)=}")
+    print(f"{get_valid_intersections(cons)=}")
+    print(f"{solve_linprog_2d(fun, cons)=}")
