@@ -52,13 +52,12 @@ class ConstraintsInputFrame(tk.Frame):
         self.button.grid(row=2 * num_vars + 3, column=0, pady=10)
 
     def next_step(self):
-        lin_prog = InputConverter.convert(self.min_max,
-                                          self.target_function_entries,
-                                          self.constraint_entries,
-                                          self.comparative_operators)
-        print(Utils2D.solve_linprog_2d(lin_prog.minimize_function, lin_prog.constraints))
         try:
-            pass
+            lin_prog = InputConverter.convert(self.min_max,
+                                              self.target_function_entries,
+                                              self.constraint_entries,
+                                              self.comparative_operators)
+            print(Utils2D.solve_linprog_2d(lin_prog.minimize_function, lin_prog.constraints))
         except Exception as e:
             error_label = tk.Label(self, text=f"Fehler beim einlesen: {e}", fg="red")
             error_label.grid(row=5, column=0, padx=10, pady=10)
