@@ -8,10 +8,14 @@ def convert(min_max_var, target_function_entries, nested_constraint_entries, com
         if comparative_operator.get() == "<=":
             a.append([float(constraint_entry.get()) for constraint_entry in constraint_entries])
         elif comparative_operator.get() == ">=":
-            a.append(-1 * [float(constraint_entry.get()) for constraint_entry in constraint_entries])
+            print("a")
+            print(constraint_entries)
+            for x in constraint_entries:
+                print(x.get())
+            a.append([-1 * float(constraint_entry.get()) for constraint_entry in constraint_entries])
         elif comparative_operator.get() == "=":
             a.append([float(constraint_entry.get()) for constraint_entry in constraint_entries])
-            a.append(-1 * [float(constraint_entry.get()) for constraint_entry in constraint_entries])
+            a.append([-1 * float(constraint_entry.get()) for constraint_entry in constraint_entries])
         else:
             raise Exception("Did not select comparative operator")
 

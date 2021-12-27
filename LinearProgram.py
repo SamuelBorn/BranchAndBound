@@ -10,3 +10,9 @@ class LinearProgram:
 
     def convert_to_traditional_layout(self):
         pass
+
+    def __str__(self):
+        ret = f"{self.c}\n\n"
+        for x in self.a:
+            ret += f"{x}\n"
+        return ret
