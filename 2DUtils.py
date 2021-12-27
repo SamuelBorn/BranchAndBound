@@ -30,6 +30,7 @@ def evaluate(function, point):
     return result
 
 
+# computes all possible intersections and filters just the intersections that are valid to all constraints
 def get_valid_intersections(constraints):
     valid_intersections = []
     for intersection in get_all_intersections(constraints):

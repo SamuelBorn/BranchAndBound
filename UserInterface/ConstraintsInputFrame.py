@@ -1,5 +1,7 @@
 import tkinter as tk
 
+from UserInterface import InputConverter
+
 SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
 
 
@@ -30,7 +32,7 @@ class ConstraintsInputFrame(tk.Frame):
         for row in range(0, num_constraints):
             for column in range(0, num_vars):
                 constraint_entry = tk.Entry(self, width=4)
-                constraint_entry.grid(row=row + 2, column=2 * column+1)
+                constraint_entry.grid(row=row + 2, column=2 * column + 1, pady=3)
                 self.constraint_entries[row].append(constraint_entry)
 
                 text = f"x{column}".translate(SUB) if column == num_vars - 1 else f"x{column} + ".translate(SUB)
@@ -39,9 +41,23 @@ class ConstraintsInputFrame(tk.Frame):
 
             comparative_operator = tk.StringVar()
             comparative_operator_option_menu = tk.OptionMenu(self, comparative_operator, *["<=", ">=", "="])
-            comparative_operator_option_menu.grid(row=row + 2, column=2 * num_vars+1)
+            comparative_operator_option_menu.grid(row=row + 2, column=2 * num_vars + 1)
             self.comparative_operators.append(comparative_operator)
 
             constraint_entry = tk.Entry(self, width=4)
             constraint_entry.grid(row=row + 2, column=2 * num_vars + 2)
             self.constraint_entries[row].append(constraint_entry)
+
+        self.button = tk.Button(self, text="Nächster Schritt", command=self.next_step)
+        self.button.grid(row=2 * num_vars + 3, column=0, pady=10)
+
+    def next_step(self):
+        try:
+            lin_prog = InputConverter.convert(self.min_max,
+                                              self.target_function_entries,
+                                              self.constraint_entries,
+                                              self.comparative_operators)
+        except Exception as e:
+            error_label = tk.Label(self, text=f"Fehler beim einlesen: {e}", fg="red")
+            error_label.grid(row=5, column=0, padx=10, pady=10)
+            return

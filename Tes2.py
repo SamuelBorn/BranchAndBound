@@ -1,28 +1,28 @@
-from tkinter import *  # from x import * is bad practice
+# from tkinter import *  # from x import * is bad practice
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import numpy as np
+import tkinter as tk
 
 
-class VerticalScrolledFrame(Frame):
+class VerticalScrolledFrame(tk.Frame):
     def __init__(self, parent, *args, **kw):
-        Frame.__init__(self, parent, *args, **kw)
+        tk.Frame.__init__(self, parent, *args, **kw)
 
         # create a canvas object and a vertical scrollbar for scrolling it
-        vscrollbar = Scrollbar(self, orient=VERTICAL)
-        vscrollbar.pack(fill=Y, side=RIGHT, expand=FALSE)
-        canvas = Canvas(self, bd=0, highlightthickness=0,
-                        yscrollcommand=vscrollbar.set)
-        canvas.pack(side=LEFT, fill=BOTH, expand=TRUE)
-        vscrollbar.config(command=canvas.yview)
+        v_scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL)
+        v_scrollbar.pack(fill=tk.Y, side=tk.RIGHT, expand=tk.FALSE)
+        canvas = tk.Canvas(self, bd=0, highlightthickness=0, yscrollcommand=v_scrollbar.set)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.TRUE)
+        v_scrollbar.config(command=canvas.yview)
 
         # reset the view
         canvas.xview_moveto(0)
         canvas.yview_moveto(0)
 
         # create a frame inside the canvas which will be scrolled with it
-        self.interior = interior = Frame(canvas)
-        interior_id = canvas.create_window(0, 0, window=interior, anchor=NW)
+        self.interior = interior = tk.Frame(canvas)
+        interior_id = canvas.create_window(0, 0, window=interior, anchor=tk.NW)
 
         # track changes to the canvas and frame width and sync them,
         # also updating the scrollbar
@@ -46,18 +46,19 @@ class VerticalScrolledFrame(Frame):
 
 if __name__ == "__main__":
 
-    class SampleApp(Tk):
+    class SampleApp(tk.Tk):
         def __init__(self, *args, **kwargs):
-            root = Tk.__init__(self, *args, **kwargs)
+            root = tk.Tk.__init__(self, *args, **kwargs)
             self.frame = VerticalScrolledFrame(root)
-            self.frame.pack(fill=BOTH, expand=1)
+            self.frame.pack(fill=tk.BOTH, expand=1)
             for i in range(10):
+                l = tk.Label(self.frame.interior, text="3x + 4x <= 4")
+                l.pack()
+
                 t = np.arange(0, 3, .01)
                 fig = Figure(figsize=(7, 4))
                 fig.add_subplot(111).plot(t, 2 * np.sin(2 * np.pi * t))
-                canvas = FigureCanvasTkAgg(fig, master=self.frame.interior)
-                canvas.draw()
-                canvas.get_tk_widget().pack(fill=BOTH)
+                FigureCanvasTkAgg(fig, master=self.frame.interior).get_tk_widget().pack(fill=tk.BOTH)
 
 
     app = SampleApp()
