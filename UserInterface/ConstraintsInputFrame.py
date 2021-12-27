@@ -1,7 +1,7 @@
 import tkinter as tk
 
+import Utils2D
 from UserInterface import InputConverter
-
 SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
 
 
@@ -56,7 +56,7 @@ class ConstraintsInputFrame(tk.Frame):
                                           self.target_function_entries,
                                           self.constraint_entries,
                                           self.comparative_operators)
-        print(lin_prog)
+        print(Utils2D.solve_linprog_2d(lin_prog.minimize_function, lin_prog.constraints))
         try:
             pass
         except Exception as e:
