@@ -17,6 +17,7 @@ class SampleApp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
         self.container_attribute = container
 
+        x = KeyDataFrame()
         self.frames = {}
         for F in (KeyDataFrame, Cool):
             page_name = F.__name__

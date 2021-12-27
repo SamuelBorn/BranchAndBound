@@ -6,11 +6,10 @@ SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
 
 
 class ConstraintsInputFrame(tk.Frame):
-    def __init__(self, parent, controller, num_vars, num_constraints, integer_points):
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
+    def __init__(self, root, num_vars, num_constraints, integer_points):
+        tk.Frame.__init__(self, root)
 
-        self.introduction = tk.Label(self, text="Eingabe der Zielfunktion und NB", font=controller.title_font)
+        self.introduction = tk.Label(self, text="Eingabe der Zielfunktion und NB", font='Helvetica 18 bold')#, font=controller.title_font)
         self.introduction.grid(row=0, column=0, pady=10, padx=10, columnspan=1000)
 
         # place the target function line
@@ -22,7 +21,7 @@ class ConstraintsInputFrame(tk.Frame):
             target_function_entry = tk.Entry(self, width=4)
             target_function_entry.grid(row=1, column=2 * i - 1)
             self.target_function_entries.append(target_function_entry)
-            text = f"x{i}".translate(SUB) if i == num_vars else f"x{i} + ".translate(SUB)
+            text = f"x{i-1}".translate(SUB) if i == num_vars else f"x{i-1} + ".translate(SUB)
             target_function_label = tk.Label(self, text=text)
             target_function_label.grid(row=1, column=2 * i)
 
