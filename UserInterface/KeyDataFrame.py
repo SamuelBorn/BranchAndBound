@@ -16,7 +16,7 @@ class KeyDataFrame(tk.Frame):
         self.var_count_label.grid(row=1, column=0, pady=10, padx=10)
         self.var_count_entry = tk.Entry(self)
         self.var_count_entry.grid(row=1, column=1)
-        self.var_count_entry.insert(tk.END, "1")
+        self.var_count_entry.insert(tk.END, "2")
 
         self.constraints_count_label = tk.Label(self, text="Anzahl der Nebenbedinungen.")
         self.constraints_count_label.grid(row=2, column=0, pady=10, padx=10)
@@ -43,7 +43,8 @@ class KeyDataFrame(tk.Frame):
             error_label.grid(row=5, column=0, padx=10, pady=10)
             return
 
-        y = tk.Tk()
-        ResultsFrame(y)
-        self.root.destroy()
-        y.mainloop()
+        y = ConstraintsInputFrame(self.root, var_count, constraint_count, self.show_integer_points.get())
+        y.grid(row=0, column=0, sticky="nsew")
+        y.tkraise()
+
+

@@ -2,12 +2,15 @@ import tkinter as tk
 
 import Utils2D
 from UserInterface import InputConverter
+from UserInterface.ResultsFrame import ResultsFrame
+
 SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
 
 
 class ConstraintsInputFrame(tk.Frame):
     def __init__(self, root, num_vars, num_constraints, integer_points):
         tk.Frame.__init__(self, root)
+        self.root = root
 
         self.introduction = tk.Label(self, text="Eingabe der Zielfunktion und NB", font='Helvetica 18 bold')#, font=controller.title_font)
         self.introduction.grid(row=0, column=0, pady=10, padx=10, columnspan=1000)
@@ -47,8 +50,8 @@ class ConstraintsInputFrame(tk.Frame):
             constraint_entry.grid(row=row + 2, column=2 * num_vars + 2)
             self.constraint_entries[row].append(constraint_entry)
 
-        self.button = tk.Button(self, text="Nächster Schritt", command=self.next_step)
-        self.button.grid(row=2 * num_vars + 3, column=0, pady=10)
+        self.button = tk.Button(self, text="Nächster Schritt", command=self.next_step, bg="#659666")
+        self.button.grid(row=2 * num_vars + 3, column=0, pady=10, padx=10)
 
     def next_step(self):
         try:
@@ -61,3 +64,9 @@ class ConstraintsInputFrame(tk.Frame):
             error_label = tk.Label(self, text=f"Fehler beim einlesen: {e}", fg="red")
             error_label.grid(row=5, column=0, padx=10, pady=10)
             return
+
+        y = tk.Tk()
+        x = ResultsFrame(y)
+        x.pack(fill=tk.BOTH, expand=1)
+        self.root.destroy()
+        y.mainloop()
