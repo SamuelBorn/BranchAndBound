@@ -38,8 +38,10 @@ class KeyDataFrame(tk.Frame):
         try:
             var_count = int(self.var_count_entry.get())
             constraint_count = int(self.constraints_count_entry.get())
-        except ValueError:
-            error_label = tk.Label(self, text="Bitte Zahlen angeben.", fg="red")
+            if var_count < 1 or constraint_count < 1:
+                raise ValueError("cant have counts < 1")
+        except ValueError as e:
+            error_label = tk.Label(self, text=f"Bitte Zahlen angeben: {e}", fg="red")
             error_label.grid(row=5, column=0, padx=10, pady=10)
             return
 

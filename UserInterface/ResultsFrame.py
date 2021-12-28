@@ -5,17 +5,29 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
+from LinearProgram import LinearProgram
+
 
 class ResultsFrame(tk.Frame):
-    def __init__(self, parent):
+
+    def _on_mousewheel(self, event):
+        self.cv.yview_scroll(-1 * (event.delta / 120), "units")
+
+    def __init__(self, parent, lin_prog):
         tk.Frame.__init__(self, parent)
 
         # create a canvas object and a vertical scrollbar for scrolling it
         v_scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL)
         v_scrollbar.pack(fill=tk.Y, side=tk.RIGHT, expand=tk.FALSE)
         canvas = tk.Canvas(self, bd=0, highlightthickness=0, yscrollcommand=v_scrollbar.set)
+        self.cv = canvas
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.TRUE)
         v_scrollbar.config(command=canvas.yview)
+
+
+
+
+
 
         # reset the view
         canvas.xview_moveto(0)
@@ -56,5 +68,8 @@ class ResultsFrame(tk.Frame):
 
 if __name__ == '__main__':
     root = tk.Tk()
-    frame = ResultsFrame(root)
+    lin_prog = LinearProgram([-1, -2], [[2, 1, 10], [1, 2, 10]], True)
+    frame = ResultsFrame(root, lin_prog)
+    frame.pack(fill=tk.BOTH, expand=1)
+    root.geometry("800x800")
     root.mainloop()

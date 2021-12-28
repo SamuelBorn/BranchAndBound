@@ -66,7 +66,7 @@ class ConstraintsInputFrame(tk.Frame):
             return
 
         y = tk.Tk()
-        x = ResultsFrame(y)
+        x = ResultsFrame(y, lin_prog)
         x.pack(fill=tk.BOTH, expand=1)
         self.root.destroy()
         y.mainloop()
