@@ -5,6 +5,7 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
+import DrawEquationUtils
 from LinearProgram import LinearProgram
 
 
@@ -23,11 +24,6 @@ class ResultsFrame(tk.Frame):
         self.cv = canvas
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.TRUE)
         v_scrollbar.config(command=canvas.yview)
-
-
-
-
-
 
         # reset the view
         canvas.xview_moveto(0)
@@ -57,18 +53,19 @@ class ResultsFrame(tk.Frame):
         canvas.bind('<Configure>', _configure_canvas)
 
         for i in range(10):
-            l = tk.Label(self.interior, text="3x + 4x <= 4")
-            l.pack()
-
-            t = np.arange(0, 3, .01)
-            fig = Figure(figsize=(7, 4))
-            fig.add_subplot(111).plot(t, 2 * np.sin(2 * np.pi * t))
-            FigureCanvasTkAgg(fig, master=self.interior).get_tk_widget().pack(fill=tk.BOTH)
+            DrawEquationUtils.draw_equations(lin_prog, self.interior)
+            # l = tk.Label(self.interior, text="3x + 4x <= 4")
+            # l.pack()
+            #
+            # t = np.arange(0, 3, .01)
+            # fig = Figure(figsize=(7, 4))
+            # fig.add_subplot(111).plot(t, 2 * np.sin(2 * np.pi * t))
+            # FigureCanvasTkAgg(fig, master=self.interior).get_tk_widget().pack(fill=tk.BOTH)
 
 
 if __name__ == '__main__':
     root = tk.Tk()
-    lin_prog = LinearProgram([-1, -2], [[2, 1, 10], [1, 2, 10]], True)
+    lin_prog = LinearProgram([[2, 1, 10], [1, 2, 10]], [-1, -2], True)
     frame = ResultsFrame(root, lin_prog)
     frame.pack(fill=tk.BOTH, expand=1)
     root.geometry("800x800")
