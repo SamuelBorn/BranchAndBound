@@ -65,7 +65,7 @@ class ResultsFrame(tk.Frame):
 
 if __name__ == '__main__':
     root = tk.Tk()
-    lin_prog = LinearProgram([[2, 1, 10], [1, 2, 10]], [-1, -2], True)
+    lin_prog = LinearProgram([[2, 1, 10], [1, 2, 10], [-1, 0, 0], [0, -1, 0]], [-1, -2], True)
     frame = ResultsFrame(root, lin_prog)
     frame.pack(fill=tk.BOTH, expand=1)
     root.geometry("800x800")
