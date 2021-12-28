@@ -1,16 +1,19 @@
 import matplotlib.pyplot as plt
-import numpy as np
-import pylab as pl
-from matplotlib import collections  as mc
 
 if __name__ == '__main__':
-    lines = [[(0, 1), (1, 1)], [(2, 3), (3, 3)], [(1, 2), (1, 3)]]
-    c = np.array([(1, 0, 0, 1), (0, 1, 0, 1), (0, 0, 1, 1)])
 
-    lc = mc.LineCollection(lines, colors=c, linewidths=2)
-    fig, ax = pl.subplots()
-    ax.add_collection(lc)
-    ax.autoscale()
-    ax.margins(0.1)
+    plt.plot([-1, -4.5, 3.14, 1])
 
+
+    x0,x1 = plt.xlim()
+    y0,y1 = plt.ylim()
+    print(plt.xlim())
+    print(plt.ylim())
+
+    import numpy as np
+
+    X,Y = np.meshgrid(np.arange(round(x0), round(x1)+1),
+                      np.arange(round(y0), round(y1)+1))
+
+    plt.scatter(X,Y)
     plt.show()

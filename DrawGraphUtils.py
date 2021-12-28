@@ -1,6 +1,7 @@
 import math
 import tkinter as tk
 
+import Utils2D
 from Line import Line
 from LinearProgram import LinearProgram
 
@@ -8,24 +9,32 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import numpy as np
+from matplotlib.patches import Polygon
 
 
 def draw_graph(lin_prog: LinearProgram, frame: tk.Frame):
     assert len(lin_prog.minimize_function) == 2
 
-    max_x, max_y = __get_max_x_y__(get_lines(lin_prog))
-
-    fig = Figure(figsize=(7, 4))
-    # #for line in get_lines(lin_prog):
-    formatted_lines = []
-    for line in get_lines(lin_prog):
-        formatted_lines.append(line.first_point())
-        formatted_lines.append(line.second_point())
-        formatted_lines.append('gray')
-
+    fig = Figure(figsize=(7, 5))
     my_plot = fig.add_subplot(111)
-    my_plot.plot(*formatted_lines)
-    my_plot.axis([0, max_x+1, 0, max_y+1])
+
+    from scipy.spatial import ConvexHull
+    points = np.array(Utils2D.get_valid_intersections(lin_prog.constraints))
+    hull = ConvexHull(points)
+    my_plot.fill(points[hull.vertices, 0], points[hull.vertices, 1], 'lightblue', alpha=0.6)
+
+    for line in get_lines(lin_prog):
+        my_plot.plot(line.second_point(), line.first_point(), color="gray")
+
+    max_x, max_y = __get_max_x_y__(get_lines(lin_prog))
+    my_plot.axis([0, max_x + 1, 0, max_y + 1])
+
+    x0, x1 = 0, max_x + 1
+    y0, y1 = 0, max_y + 1
+    X, Y = np.meshgrid(np.arange(round(x0), round(x1) + 1),
+                       np.arange(round(y0), round(y1) + 1))
+    my_plot.scatter(X, Y, s=2, c="lightgray")
+
     FigureCanvasTkAgg(fig, master=frame).get_tk_widget().pack(fill=tk.BOTH)
 
 

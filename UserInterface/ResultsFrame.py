@@ -53,7 +53,7 @@ class ResultsFrame(tk.Frame):
 
         canvas.bind('<Configure>', _configure_canvas)
 
-        for i in range(2):
+        for i in range(1):
             DrawEquationUtils.draw_equations(lin_prog, self.interior)
             DrawGraphUtils.draw_graph(lin_prog, self.interior)
             # l = tk.Label(self.interior, text="3x + 4x <= 4")
@@ -67,7 +67,7 @@ class ResultsFrame(tk.Frame):
 
 if __name__ == '__main__':
     root = tk.Tk()
-    lin_prog = LinearProgram([[2, 1, 10], [1, 2, 10], [-1, 0, 0], [0, -1, 0]], [-1, -2], True)
+    lin_prog = LinearProgram([[2, 1, 10], [1, 2, 10], [3, 4, 50], [-1, 0, 0], [0, -1, 0]], [-1, -2], True)
     frame = ResultsFrame(root, lin_prog)
     frame.pack(fill=tk.BOTH, expand=1)
     root.geometry("800x800")
