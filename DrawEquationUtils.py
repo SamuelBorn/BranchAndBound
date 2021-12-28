@@ -35,7 +35,6 @@ def get_target_function(lin_prog):
 
 def get_constraints(lin_prog: LinearProgram):
     ret = ""
-    print(lin_prog.constraints)
     for constraint in lin_prog.constraints:
         for idx, parameter in enumerate(constraint[:-2]):
             ret += f"{parameter}"
