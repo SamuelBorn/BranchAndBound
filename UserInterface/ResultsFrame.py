@@ -6,6 +6,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
 import DrawEquationUtils
+import DrawGraphUtils
 from LinearProgram import LinearProgram
 
 
@@ -52,8 +53,9 @@ class ResultsFrame(tk.Frame):
 
         canvas.bind('<Configure>', _configure_canvas)
 
-        for i in range(10):
+        for i in range(2):
             DrawEquationUtils.draw_equations(lin_prog, self.interior)
+            DrawGraphUtils.draw_graph(lin_prog, self.interior)
             # l = tk.Label(self.interior, text="3x + 4x <= 4")
             # l.pack()
             #

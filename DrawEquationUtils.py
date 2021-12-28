@@ -14,7 +14,7 @@ def draw_equations(lin_prog: LinearProgram, frame: tk.Frame):
 
 
 def get_target_function(lin_prog):
-    ret = ""
+    ret = "\n"
     if lin_prog.was_maximize:
         ret += "max "
         for idx, parameter in enumerate(lin_prog.minimize_function[:-1]):

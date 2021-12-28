@@ -8,3 +8,9 @@ class Line:
 
     x2: float
     y2: float
+
+    def first_point(self):
+        return self.x1, self.y1
+
+    def second_point(self):
+        return self.x2, self.y2
