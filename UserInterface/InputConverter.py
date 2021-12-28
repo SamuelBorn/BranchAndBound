@@ -15,7 +15,7 @@ def convert(min_max_var, target_function_entries, nested_constraint_entries, com
         else:
             raise Exception("Did not select comparative operator")
 
-    for constraint in constraints:
+    for constraint in constraints:  # check fot plausibility of constraints
         zero = True
         for value in constraint[:-1]:
             if abs(value) >= 0.001:
@@ -38,7 +38,7 @@ def convert(min_max_var, target_function_entries, nested_constraint_entries, com
     else:
         raise Exception("Did not select min max var")
 
-    zero = True
+    zero = True  # check fot plausibility of target function
     for value in target_function:
         if abs(value) >= 0.001:
             zero = False
