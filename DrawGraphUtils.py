@@ -18,24 +18,24 @@ def draw_graph(lin_prog: LinearProgram, frame: tk.Frame):
     fig = Figure(figsize=(7, 5))
     my_plot = fig.add_subplot(111)
 
-    from scipy.spatial import ConvexHull
+    from scipy.spatial import ConvexHull  # color the constrained area
     points = np.array(Utils2D.get_valid_intersections(lin_prog.constraints))
     hull = ConvexHull(points)
     my_plot.fill(points[hull.vertices, 0], points[hull.vertices, 1], 'lightblue', alpha=0.6)
 
-    for line in get_lines(lin_prog):
+    for line in get_lines(lin_prog):  # draw all constraint lines
         my_plot.plot(line.second_point(), line.first_point(), color="gray")
 
-    max_x, max_y = __get_max_x_y__(get_lines(lin_prog))
+    max_x, max_y = __get_max_x_y__(get_lines(lin_prog))  # set the axis
     my_plot.axis([0, max_x + 1, 0, max_y + 1])
 
-    x0, x1 = 0, max_x + 1
-    y0, y1 = 0, max_y + 1
-    X, Y = np.meshgrid(np.arange(round(x0), round(x1) + 1),
-                       np.arange(round(y0), round(y1) + 1))
-    my_plot.scatter(X, Y, s=2, c="lightgray")
+    x, y = np.meshgrid(np.arange(0, max_x + 1), np.arange(0, max_y + 1))  # draw all integer points
+    my_plot.scatter(x, y, s=2, c="lightgray")
 
-    FigureCanvasTkAgg(fig, master=frame).get_tk_widget().pack(fill=tk.BOTH)
+    target_line = get_target_function_line(lin_prog)
+    my_plot.plot(target_line.second_point(), target_line.first_point(), color="orange")
+
+    FigureCanvasTkAgg(fig, master=frame).get_tk_widget().pack(fill=tk.BOTH)  # add image to frame
 
 
 def get_lines(lin_prog: LinearProgram):
@@ -65,6 +65,25 @@ def get_lines(lin_prog: LinearProgram):
             lines.append(Line(c / a, 0, c / a, max_y))
 
     return lines
+
+
+def get_target_function_line(lin_prog: LinearProgram):
+    optimal_point, optimal_value = lin_prog.solve()
+
+    a, b = lin_prog.minimize_function  # ax + by
+    c = optimal_value
+
+    max_x, max_y = __get_max_x_y__(get_lines(lin_prog))
+    if abs(a) <= 0.00001:
+        return Line(0, c / b, max_x, c / b)
+    elif abs(b) <= 0.0001:
+        return Line(c / a, 0, c / a, max_y)
+    else:
+        y1 = c / b  # x = 0
+        x1 = (c - b * y1) / a
+        x2 = c / a  # y = 0
+        y2 = (c - a * x2) / b
+        return Line(x1, y1, x2, y2)
 
 
 # returns the extremes of x and y, so I know how long to draw lines parallel to the axis
