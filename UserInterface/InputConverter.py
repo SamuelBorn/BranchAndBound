@@ -15,6 +15,14 @@ def convert(min_max_var, target_function_entries, nested_constraint_entries, com
         else:
             raise Exception("Did not select comparative operator")
 
+    for constraint in constraints:
+        zero = True
+        for value in constraint[:-1]:
+            if abs(value) >= 0.001:
+                zero = False
+        if zero:
+            raise Exception("Constraints cant be all 0")
+
     for i in range(len(target_function_entries)):
         x = [0 for _ in range(len(target_function_entries) + 1)]
         x[i] = -1
@@ -29,5 +37,12 @@ def convert(min_max_var, target_function_entries, nested_constraint_entries, com
             target_function.append(-1 * float(target_entry.get()))  # max cTx is stored as -min -cTx.
     else:
         raise Exception("Did not select min max var")
+
+    zero = True
+    for value in target_function:
+        if abs(value) >= 0.001:
+            zero = False
+    if zero:
+        raise Exception("Target function cant be all 0")
 
     return LinearProgram(constraints, target_function, min_max_var.get() == "max")
