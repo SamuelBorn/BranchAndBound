@@ -5,8 +5,8 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
-import DrawEquationUtils
-import DrawGraphUtils
+import DrawEquationUtil
+import DrawGraphUtil
 from LinearProgram import LinearProgram
 
 
