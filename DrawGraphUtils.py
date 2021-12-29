@@ -24,7 +24,9 @@ def draw_graph(lin_prog: LinearProgram, frame: tk.Frame):
     my_plot.fill(points[hull.vertices, 0], points[hull.vertices, 1], 'lightblue', alpha=0.6)
 
     for line in get_lines(lin_prog):  # draw all constraint lines
-        my_plot.plot(line.second_point(), line.first_point(), color="gray")
+        print(line)
+        my_plot.plot(line.get_x(), line.get_y(), color="gray")
+        # my_plot.plot(line.second_point(), line.first_point(), color="gray")
 
     max_x, max_y = __get_max_x_y__(get_lines(lin_prog))  # set the axis
     my_plot.axis([0, max_x + 1, 0, max_y + 1])
@@ -33,7 +35,7 @@ def draw_graph(lin_prog: LinearProgram, frame: tk.Frame):
     my_plot.scatter(x, y, s=2, c="lightgray")
 
     target_line = get_target_function_line(lin_prog)
-    my_plot.plot(target_line.second_point(), target_line.first_point(), color="orange")
+    my_plot.plot(target_line.get_x(), target_line.get_y(), color="orange")
 
     FigureCanvasTkAgg(fig, master=frame).get_tk_widget().pack(fill=tk.BOTH)  # add image to frame
 
@@ -60,9 +62,9 @@ def get_lines(lin_prog: LinearProgram):
     for constraint in lin_prog.constraints:
         a, b, c = constraint  # ax + by = c
         if abs(a) <= 0.0001:
-            lines.append(Line(0, c / b, max_x, c / b))
+            lines.append(Line(max_x + 0.5, c / b, 0, c / b))
         elif abs(b) <= 0.0001:
-            lines.append(Line(c / a, 0, c / a, max_y))
+            lines.append(Line(c / a, max_y + 0.5, c / a, 0))
 
     return lines
 

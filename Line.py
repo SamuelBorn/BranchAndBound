@@ -14,3 +14,9 @@ class Line:
 
     def second_point(self):
         return self.x2, self.y2
+
+    def get_x(self):
+        return self.x1, self.x2
+
+    def get_y(self):
+        return self.y1, self.y2
