@@ -1,15 +1,12 @@
-import math
 import tkinter as tk
 
 import Utils2D
 from Line import Line
 from LinearProgram import LinearProgram
 
-import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import numpy as np
-from matplotlib.patches import Polygon
 
 
 def draw_graph(lin_prog: LinearProgram, frame: tk.Frame):

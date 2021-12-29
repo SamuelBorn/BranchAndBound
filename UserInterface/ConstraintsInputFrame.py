@@ -1,6 +1,6 @@
 import tkinter as tk
 
-import Utils2D
+from Utils import Utils2D
 from UserInterface import InputConverter
 from UserInterface.ResultsFrame import ResultsFrame
 

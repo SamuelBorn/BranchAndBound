@@ -1,4 +1,4 @@
-import Utils2D
+from Utils import Utils2D
 
 
 class LinearProgram:
