@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from LinearProgram import LinearProgram
+from Utils import DrawGraphUtil, DrawEquationUtil
 
 
 class ResultsFrame(tk.Frame):
@@ -47,8 +48,8 @@ class ResultsFrame(tk.Frame):
         canvas.bind('<Configure>', _configure_canvas)
 
         for i in range(1):
-            DrawEquationUtils.draw_equations(lin_prog, self.interior)
-            DrawGraphUtils.draw_graph(lin_prog, self.interior)
+            DrawEquationUtil.draw_equations(lin_prog, self.interior)
+            DrawGraphUtil.draw_graph(lin_prog, self.interior)
             # l = tk.Label(self.interior, text="3x + 4x <= 4")
             # l.pack()
             #

@@ -1,12 +1,14 @@
 import tkinter as tk
 
-import Utils2D
+
 from Line import Line
 from LinearProgram import LinearProgram
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import numpy as np
+
+from Utils import Utils2D
 
 
 def draw_graph(lin_prog: LinearProgram, frame: tk.Frame):
@@ -21,7 +23,6 @@ def draw_graph(lin_prog: LinearProgram, frame: tk.Frame):
     my_plot.fill(points[hull.vertices, 0], points[hull.vertices, 1], 'lightblue', alpha=0.6)
 
     for line in get_lines(lin_prog):  # draw all constraint lines
-        print(line)
         my_plot.plot(line.get_x(), line.get_y(), color="gray")
         # my_plot.plot(line.second_point(), line.first_point(), color="gray")
 
