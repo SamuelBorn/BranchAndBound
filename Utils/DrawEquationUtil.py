@@ -13,7 +13,7 @@ def draw_equations(lin_prog: LinearProgram, frame: tk.Frame):
     lab.pack()
 
 
-def get_target_function(lin_prog):
+def get_target_function(lin_prog) -> str:
     ret = "\n"
     if lin_prog.was_maximize:
         ret += "max "
@@ -33,7 +33,7 @@ def get_target_function(lin_prog):
     return ret
 
 
-def get_constraints(lin_prog: LinearProgram):
+def get_constraints(lin_prog: LinearProgram) -> str:
     ret = ""
     for constraint in lin_prog.constraints:
         for idx, parameter in enumerate(constraint[:-2]):
