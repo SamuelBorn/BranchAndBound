@@ -2,6 +2,8 @@ import tkinter as tk
 
 from LinearProgram import LinearProgram
 from Utils import DrawGraphUtil, DrawEquationUtil
+from Utils.BranchAndBoundSolver import BranchAndBoundSolver
+from Utils.ProblemSelector import LIFOSelector
 
 
 class ResultsFrame(tk.Frame):
@@ -47,9 +49,9 @@ class ResultsFrame(tk.Frame):
 
         canvas.bind('<Configure>', _configure_canvas)
 
-        for i in range(1):
-            DrawEquationUtil.draw_equations(lin_prog, self.interior)
-            DrawGraphUtil.draw_graph(lin_prog, self.interior)
+        # for i in range(1):
+        #     DrawEquationUtil.draw_equations(lin_prog, self.interior)
+        #     DrawGraphUtil.draw_graph(lin_prog, self.interior)
             # l = tk.Label(self.interior, text="3x + 4x <= 4")
             # l.pack()
             #
@@ -61,9 +63,12 @@ class ResultsFrame(tk.Frame):
 
 if __name__ == '__main__':
     root = tk.Tk()
-    lin_prog = LinearProgram([[2, 1, 10], [1, 0, 3], [0, 1, 3], [-1, 0, 0], [0, -1, 0]],
-                             [-2, -2], True)
+    lin_prog = LinearProgram([[2, 1, 5], [1, 2, 5], [-1, 0, 0], [0, -1, 0]], [-1, -1], True)
     frame = ResultsFrame(root, lin_prog)
+
+    ps = LIFOSelector()
+    BranchAndBoundSolver(lin_prog, frame.interior, ps).solve()
+
     frame.pack(fill=tk.BOTH, expand=1)
     root.geometry("800x800")
     root.mainloop()

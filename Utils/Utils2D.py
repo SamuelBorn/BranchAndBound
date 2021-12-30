@@ -87,6 +87,14 @@ def get_all_pairs(constraints):
     return list(itertools.combinations(constraints, 2))
 
 
+def is_integer_vector(vector):
+    return all(almost_integer(x) for x in vector)
+
+
+def almost_integer(x):
+    return abs(x % 1) <= 0.000001
+
+
 if __name__ == '__main__':
     fun = (-1, -1)
     cons = [(1, 2, 10), (2, 1, 10), (-1, 0, 0), (0, -1, 0)]

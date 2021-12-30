@@ -11,7 +11,8 @@ class ProblemSelector(ABC):
 
 class LIFOSelector(ProblemSelector):
     def select(self, problems: list[LinearProgram]) -> (LinearProgram, list[LinearProgram]):
-        pass
+        selected = problems.pop()
+        return selected, problems
 
 
 class MaxUpperBoundSelector(ProblemSelector):
