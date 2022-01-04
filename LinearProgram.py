@@ -1,5 +1,7 @@
 from Utils import Utils2D
 
+from scipy.optimize import linprog
+
 
 class LinearProgram:
 
@@ -18,4 +20,21 @@ class LinearProgram:
         return ret
 
     def solve(self):
-        return Utils2D.solve_linprog_2d(self.minimize_function, self.constraints)
+        if len(self.minimize_function) == 2:
+            return Utils2D.solve_linprog_2d(self.minimize_function, self.constraints)
+        else:
+            res = linprog(c=self.minimize_function, A_ub=self.get_constraints_matrix(),
+                          b_ub=self.get_constraint_vector())
+            return res.x, res.fun
+
+    def get_constraints_matrix(self):
+        ret = []
+        for constraint in self.constraints:
+            ret.append(constraint[:-1])
+        return ret
+
+    def get_constraint_vector(self):
+        ret = []
+        for constraint in self.constraints:
+            ret.append(constraint[-1])
+        return ret
