@@ -17,4 +17,14 @@ class LIFOSelector(ProblemSelector):
 
 class MaxUpperBoundSelector(ProblemSelector):
     def select(self, problems: list[LinearProgram]) -> (LinearProgram, list[LinearProgram]):
-        pass
+        best_problem = None
+        best_function_value = float("inf")
+        for problem in problems:
+            x = problem.solve()[1]
+            if x <= best_function_value:
+                best_function_value = x
+                best_problem = problem
+
+        return best_problem, problems.remove(best_problem)
+
+
