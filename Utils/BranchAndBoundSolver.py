@@ -41,16 +41,12 @@ class BranchAndBoundSolver:
                         new_upper_constraint = [0] * (len(optimal_point) + 1)
                         new_upper_constraint[-1] = -math.ceil(optimal_point_value)
                         new_upper_constraint[idx] = -1
-                        print(
-                            LinearProgram(P.constraints + [new_upper_constraint], P.minimize_function, P.was_maximize))
                         self.L.append(
                             LinearProgram(P.constraints + [new_upper_constraint], P.minimize_function, P.was_maximize))
 
                         new_lower_constraint = [0] * (len(optimal_point) + 1)
                         new_lower_constraint[-1] = math.floor(optimal_point_value)
                         new_lower_constraint[idx] = 1
-                        print(
-                            LinearProgram(P.constraints + [new_lower_constraint], P.minimize_function, P.was_maximize))
                         self.L.append(
                             LinearProgram(P.constraints + [new_lower_constraint], P.minimize_function, P.was_maximize))
                         break
@@ -58,7 +54,6 @@ class BranchAndBoundSolver:
         tk.Label(self.frame, text=f"\n\n\n\nDer optimale ganzzahlige Wert ist:     {self.was_max_factor * self.Fl}",
                  font='Helvetica 14 bold').pack()
         DrawEquationUtil.draw_vec(self.opt, self.frame)
-        print(self.Fl)
 
     def ausgelotet(self, optimal_point, optimal_value):
         if optimal_value >= self.Fl:

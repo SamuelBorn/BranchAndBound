@@ -25,7 +25,7 @@ class KeyDataFrame(tk.Frame):
         self.constraints_count_label.grid(row=2, column=0, pady=10, padx=10)
         self.constraints_count_entry = tk.Entry(self)
         self.constraints_count_entry.grid(row=2, column=1, pady=10, padx=10)
-        self.constraints_count_entry.insert(tk.END, "1")
+        self.constraints_count_entry.insert(tk.END, "2")
 
         self.show_integer_points = tk.BooleanVar()
         self.show_integer_points.set(True)

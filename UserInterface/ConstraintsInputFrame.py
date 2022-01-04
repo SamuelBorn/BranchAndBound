@@ -75,7 +75,6 @@ class ConstraintsInputFrame(tk.Frame):
         y.geometry("800x800")
         x = ResultsFrame(y)
 
-        print(lin_prog)
         BranchAndBoundSolver(lin_prog, x.interior, self.selection_rule, self.integer_points).solve()
         x.pack(fill=tk.BOTH, expand=1)
 

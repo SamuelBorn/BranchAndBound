@@ -52,8 +52,9 @@ class ResultsFrame(tk.Frame):
 
 if __name__ == '__main__':
     root = tk.Tk()
-    lin_prog = LinearProgram([[2, 1, 5], [1, 2, 5], [-1, 0, 0], [0, -1, 0]], [-1, -1], True)
-    frame = ResultsFrame(root, lin_prog)
+    lin_prog = LinearProgram([[2, 1, 4], [1, 2, 4], [-1, 0, 0], [0, -1, 0]], [-1, -1], True)
+    #lin_prog = LinearProgram([[2, 1, 5], [1, 2, 5], [-1, 0, 0], [0, -1, 0]], [-1, -1], True)
+    frame = ResultsFrame(root)
 
     ps = LIFOSelector()
     BranchAndBoundSolver(lin_prog, frame.interior, ps, True).solve()
