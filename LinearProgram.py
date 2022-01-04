@@ -25,7 +25,7 @@ class LinearProgram:
         else:
             res = linprog(c=self.minimize_function, A_ub=self.get_constraints_matrix(),
                           b_ub=self.get_constraint_vector())
-            return res.x, res.fun
+            return list(res.x), res.fun
 
     def get_constraints_matrix(self):
         ret = []
