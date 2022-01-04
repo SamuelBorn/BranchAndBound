@@ -89,7 +89,7 @@ def get_target_function_line(lin_prog: LinearProgram):
 
 
 # returns the extremes of x and y, so I know how long to draw lines parallel to the axis
-def __get_max_x_y__(lines: list[Line]):
+def __get_max_x_y__(lines):
     max_x = 3
     max_y = 3
     for line in lines:

@@ -98,7 +98,3 @@ def almost_integer(x):
 if __name__ == '__main__':
     fun = (-1, -1)
     cons = [(1, 2, 10), (2, 1, 10), (-1, 0, 0), (0, -1, 0)]
-    print("Test 2D Utils:")
-    print(f"{get_all_intersections(cons)=}")
-    print(f"{get_valid_intersections(cons)=}")
-    print(f"{solve_linprog_2d(fun, cons)=}")

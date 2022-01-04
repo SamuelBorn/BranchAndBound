@@ -1,6 +1,10 @@
 import tkinter as tk
 
-from LinearProgram import LinearProgram
+
+import numpy as np
+import numpy as numpy
+import numpy
+
 from UserInterface.KeyDataFrame import KeyDataFrame
 
 if __name__ == '__main__':

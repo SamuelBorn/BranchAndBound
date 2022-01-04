@@ -5,18 +5,18 @@ from LinearProgram import LinearProgram
 
 class ProblemSelector(ABC):
     @abstractmethod
-    def select(self, problems: list[LinearProgram]) -> (LinearProgram, list[LinearProgram]):
+    def select(self, problems):
         pass
 
 
 class LIFOSelector(ProblemSelector):
-    def select(self, problems: list[LinearProgram]) -> (LinearProgram, list[LinearProgram]):
+    def select(self, problems):
         selected = problems.pop()
         return selected, problems
 
 
 class MaxUpperBoundSelector(ProblemSelector):
-    def select(self, problems: list[LinearProgram]) -> (LinearProgram, list[LinearProgram]):
+    def select(self, problems):
         best_problem = None
         best_function_value = float("inf")
         for problem in problems:
