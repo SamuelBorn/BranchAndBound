@@ -52,9 +52,11 @@ class BranchAndBoundSolver:
                             LinearProgram(P.constraints + [new_lower_constraint], P.minimize_function, P.was_maximize))
                         break
 
-        tk.Label(self.frame, text=f"\n\n\n\nDer optimale ganzzahlige Wert ist:     {self.was_max_factor * self.Fl}",
+        o = self.was_max_factor * self.Fl
+        l = round(o) if Utils2D.almost_integer(o) else o
+        tk.Label(self.frame, text=f"\n\n\n\nDer optimale ganzzahlige Wert ist:     {l}",
                  font='Helvetica 14 bold').pack()
-        DrawEquationUtil.draw_vec(self.opt, self.frame)
+        DrawEquationUtil.draw_int_vec(self.opt, self.frame)
 
     def ausgelotet(self, optimal_point, optimal_value):
         if optimal_value >= self.Fl:

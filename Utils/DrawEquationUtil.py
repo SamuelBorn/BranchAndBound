@@ -47,7 +47,7 @@ def get_constraints(lin_prog: LinearProgram) -> str:
     return ret
 
 
-def draw_vec(vec: list[float], frame):
+def draw_int_vec(vec: list[float], frame):
     for idx, num in enumerate(vec):
         var_str = f"x{idx}".translate(SUB)
-        tk.Label(frame, text=f"{var_str} = {num}").pack()
+        tk.Label(frame, text=f"{var_str} = {round(num)}").pack()

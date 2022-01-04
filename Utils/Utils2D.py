@@ -92,7 +92,7 @@ def is_integer_vector(vector):
 
 
 def almost_integer(x):
-    return abs(x % 1) <= 0.000001
+    return abs(x - round(x)) <= 0.0001
 
 
 if __name__ == '__main__':
