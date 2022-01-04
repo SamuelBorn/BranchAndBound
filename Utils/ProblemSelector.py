@@ -25,6 +25,7 @@ class MaxUpperBoundSelector(ProblemSelector):
                 best_function_value = x
                 best_problem = problem
 
-        return best_problem, problems.remove(best_problem)
+        problems.remove(best_problem)
+        return best_problem, problems
 
 

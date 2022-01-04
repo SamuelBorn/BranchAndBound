@@ -3,7 +3,7 @@ import tkinter as tk
 from LinearProgram import LinearProgram
 from Utils import DrawGraphUtil, DrawEquationUtil
 from Utils.BranchAndBoundSolver import BranchAndBoundSolver
-from Utils.ProblemSelector import LIFOSelector
+from Utils.ProblemSelector import LIFOSelector, MaxUpperBoundSelector
 
 
 class ResultsFrame(tk.Frame):
@@ -58,7 +58,7 @@ if __name__ == '__main__':
                              True)
     frame = ResultsFrame(root)
 
-    ps = LIFOSelector()
+    ps = MaxUpperBoundSelector()
     BranchAndBoundSolver(lin_prog, frame.interior, ps, True).solve()
 
     frame.pack(fill=tk.BOTH, expand=1)
