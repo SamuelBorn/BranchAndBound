@@ -1,7 +1,6 @@
 import tkinter as tk
 
 from LinearProgram import LinearProgram
-from Utils import DrawGraphUtil, DrawEquationUtil
 from Utils.BranchAndBoundSolver import BranchAndBoundSolver
 from Utils.ProblemSelector import LIFOSelector, MaxUpperBoundSelector
 
