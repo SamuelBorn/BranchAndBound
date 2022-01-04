@@ -59,15 +59,18 @@ class BranchAndBoundSolver:
         DrawEquationUtil.draw_int_vec(self.opt, self.frame)
 
     def ausgelotet(self, optimal_point, optimal_value):
-        if optimal_value >= self.Fl:
-            tk.Label(self.frame, text=f"ausgelotet, da {optimal_value} >= bisheriger bester Wert {self.Fl} ist").pack()
-            return True
         if optimal_point is None:
             tk.Label(self.frame, text=f"ausgelotet, da Lösungsmenge leer").pack()
             return True
+
+        if optimal_value >= self.Fl:
+            tk.Label(self.frame, text=f"ausgelotet, da {optimal_value} >= bisheriger bester Wert {self.Fl} ist").pack()
+            return True
+
         if Utils2D.is_integer_vector(optimal_point):
             self.Fl = optimal_value
             self.opt = optimal_point
             tk.Label(self.frame, text=f"ausgelotet, da neuer ganzzahliger Punkt gefunden wurde").pack()
             return True
+
         return False
