@@ -1,6 +1,5 @@
 from Utils import Utils2D, my_linprog
 
-import scipy.optimize
 
 
 class LinearProgram:
