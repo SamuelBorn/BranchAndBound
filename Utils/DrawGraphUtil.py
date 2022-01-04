@@ -16,10 +16,10 @@ def draw_graph(lin_prog: LinearProgram, frame: tk.Frame, show_integer_points):
     fig = Figure(figsize=(7, 5))
     my_plot = fig.add_subplot(111)
 
-    from scipy.spatial import ConvexHull  # color the constrained area
-    points = np.array(Utils2D.get_valid_intersections(lin_prog.constraints))
-    hull = ConvexHull(points)
-    my_plot.fill(points[hull.vertices, 0], points[hull.vertices, 1], 'lightblue', alpha=0.6)
+    x, y = zip(*Utils2D.get_valid_intersections(lin_prog.constraints))
+    x, y = np.array(x), np.array(y)
+    order = np.argsort(np.arctan2(y - y.mean(), x - x.mean()))
+    my_plot.fill(x[order], y[order], "lightblue", alpha=0.5)
 
     for line in get_lines(lin_prog):  # draw all constraint lines
         my_plot.plot(line.get_x(), line.get_y(), color="gray")
