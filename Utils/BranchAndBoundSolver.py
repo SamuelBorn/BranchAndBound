@@ -2,6 +2,8 @@ from tkinter import Frame
 
 import math
 
+import tkinter as tk
+
 from LinearProgram import LinearProgram
 from Utils import Utils2D, DrawEquationUtil, DrawGraphUtil
 from Utils.ProblemSelector import ProblemSelector
@@ -11,8 +13,11 @@ class BranchAndBoundSolver:
     def __init__(self, start: LinearProgram, frame: Frame, selection_rule: ProblemSelector) -> None:
         self.L: list[LinearProgram] = [start]
         self.Fl: float = float("inf")
+        self.opt: list[float] = None
         self.frame = frame
         self.selection_rule = selection_rule
+        self.draw_enabled = len(start.minimize_function) == 2
+        self.was_max_factor = -1 if start.was_maximize else 1
 
     def solve(self):
         while self.L:
@@ -20,13 +25,14 @@ class BranchAndBoundSolver:
             P, self.L = self.selection_rule.select(self.L)
 
             DrawEquationUtil.draw_equations(P, self.frame)
-            DrawGraphUtil.draw_graph(P, self.frame)
+
+            if self.draw_enabled:
+                DrawGraphUtil.draw_graph(P, self.frame)
 
             optimal_point, optimal_value = P.solve()
 
             if self.ausgelotet(optimal_point, optimal_value):
                 pass  # already removed P from L in problem selector
-                print("ausgelotet")
             else:
                 for idx, optimal_point_value in enumerate(optimal_point):
                     if not Utils2D.almost_integer(optimal_point_value):
@@ -45,15 +51,23 @@ class BranchAndBoundSolver:
                             LinearProgram(P.constraints + [new_lower_constraint], P.minimize_function, P.was_maximize))
                         self.L.append(
                             LinearProgram(P.constraints + [new_lower_constraint], P.minimize_function, P.was_maximize))
+                        break
 
+        tk.Label(self.frame, text=f"\n\n\n\nDer optimale ganzzahlige Wert ist:     {self.was_max_factor * self.Fl}",
+                 font='Helvetica 14 bold').pack()
+        DrawEquationUtil.draw_vec(self.opt, self.frame)
         print(self.Fl)
 
     def ausgelotet(self, optimal_point, optimal_value):
         if optimal_value >= self.Fl:
+            tk.Label(self.frame, text=f"ausgelotet, da {optimal_value} >= bisheriger bester Wert {self.Fl} ist").pack()
             return True
         if optimal_point is None:
+            tk.Label(self.frame, text=f"ausgelotet, da Lösungsmenge leer").pack()
             return True
         if Utils2D.is_integer_vector(optimal_point):
             self.Fl = optimal_value
+            self.opt = optimal_point
+            tk.Label(self.frame, text=f"ausgelotet, da neuer ganzzahliger Punkt gefunden wurde").pack()
             return True
         return False
