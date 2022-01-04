@@ -3,6 +3,7 @@ from tkinter import ttk
 
 from UserInterface.ConstraintsInputFrame import ConstraintsInputFrame
 from UserInterface.ResultsFrame import ResultsFrame
+import Utils.ProblemSelector
 
 
 class KeyDataFrame(tk.Frame):
@@ -54,6 +55,14 @@ class KeyDataFrame(tk.Frame):
             error_label.grid(row=5, column=0, padx=10, pady=10)
             return
 
-        y = ConstraintsInputFrame(self.root, var_count, constraint_count, self.show_integer_points.get())
+        selector = None
+        if self.selection_rule.get() == "Last In - First Out":
+            selector = Utils.ProblemSelector.LIFOSelector()
+        elif self.selection_rule.get() == "Maximum Upper Bound":
+            selector = Utils.ProblemSelector.MaxUpperBoundSelector()
+        else:
+            raise Exception(f"{self.selection_rule.get()} ist not an option for a selector")
+
+        y = ConstraintsInputFrame(self.root, var_count, constraint_count, self.show_integer_points.get(), selector)
         y.grid(row=0, column=0, sticky="nsew")
         y.tkraise()

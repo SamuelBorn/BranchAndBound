@@ -11,7 +11,7 @@ class ResultsFrame(tk.Frame):
     def _on_mousewheel(self, event):
         self.cv.yview_scroll(-1 * (event.delta / 120), "units")
 
-    def __init__(self, parent, lin_prog):
+    def __init__(self, parent):
         tk.Frame.__init__(self, parent)
 
         # create a canvas object and a vertical scrollbar for scrolling it
@@ -49,17 +49,6 @@ class ResultsFrame(tk.Frame):
 
         canvas.bind('<Configure>', _configure_canvas)
 
-        # for i in range(1):
-        #     DrawEquationUtil.draw_equations(lin_prog, self.interior)
-        #     DrawGraphUtil.draw_graph(lin_prog, self.interior)
-            # l = tk.Label(self.interior, text="3x + 4x <= 4")
-            # l.pack()
-            #
-            # t = np.arange(0, 3, .01)
-            # fig = Figure(figsize=(7, 4))
-            # fig.add_subplot(111).plot(t, 2 * np.sin(2 * np.pi * t))
-            # FigureCanvasTkAgg(fig, master=self.interior).get_tk_widget().pack(fill=tk.BOTH)
-
 
 if __name__ == '__main__':
     root = tk.Tk()
@@ -67,7 +56,7 @@ if __name__ == '__main__':
     frame = ResultsFrame(root, lin_prog)
 
     ps = LIFOSelector()
-    BranchAndBoundSolver(lin_prog, frame.interior, ps).solve()
+    BranchAndBoundSolver(lin_prog, frame.interior, ps, True).solve()
 
     frame.pack(fill=tk.BOTH, expand=1)
     root.geometry("800x800")

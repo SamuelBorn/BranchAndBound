@@ -4,13 +4,18 @@ from tkinter import ttk
 from Utils import Utils2D
 from UserInterface import InputConverter
 from UserInterface.ResultsFrame import ResultsFrame
+from Utils.BranchAndBoundSolver import BranchAndBoundSolver
 
 SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
 
 
 class ConstraintsInputFrame(tk.Frame):
-    def __init__(self, root, num_vars, num_constraints, integer_points):
+    def __init__(self, root, num_vars, num_constraints, integer_points, selection_rule):
         tk.Frame.__init__(self, root)
+
+        self.integer_points = integer_points
+        self.selection_rule = selection_rule
+
         self.root = root
 
         self.introduction = tk.Label(self, text="Eingabe der Zielfunktion und NB",
@@ -61,14 +66,18 @@ class ConstraintsInputFrame(tk.Frame):
                                               self.target_function_entries,
                                               self.constraint_entries,
                                               self.comparative_operators)
-            print(Utils2D.solve_linprog_2d(lin_prog.minimize_function, lin_prog.constraints))
         except Exception as e:
             error_label = tk.Label(self, text=f"Fehler beim einlesen: {e}", fg="red")
             error_label.grid(row=5, column=0, padx=10, pady=10)
             return
 
         y = tk.Tk()
-        x = ResultsFrame(y, lin_prog)
+        y.geometry("800x800")
+        x = ResultsFrame(y)
+
+        print(lin_prog)
+        BranchAndBoundSolver(lin_prog, x.interior, self.selection_rule, self.integer_points).solve()
         x.pack(fill=tk.BOTH, expand=1)
+
         self.root.destroy()
         y.mainloop()

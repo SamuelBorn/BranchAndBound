@@ -10,7 +10,8 @@ from Utils.ProblemSelector import ProblemSelector
 
 
 class BranchAndBoundSolver:
-    def __init__(self, start: LinearProgram, frame: Frame, selection_rule: ProblemSelector) -> None:
+    def __init__(self, start: LinearProgram, frame: Frame, selection_rule: ProblemSelector,
+                 show_integer_points) -> None:
         self.L: list[LinearProgram] = [start]
         self.Fl: float = float("inf")
         self.opt: list[float] = None
@@ -18,6 +19,7 @@ class BranchAndBoundSolver:
         self.selection_rule = selection_rule
         self.draw_enabled = len(start.minimize_function) == 2
         self.was_max_factor = -1 if start.was_maximize else 1
+        self.show_integer_points = show_integer_points
 
     def solve(self):
         while self.L:
@@ -27,7 +29,7 @@ class BranchAndBoundSolver:
             DrawEquationUtil.draw_equations(P, self.frame)
 
             if self.draw_enabled:
-                DrawGraphUtil.draw_graph(P, self.frame)
+                DrawGraphUtil.draw_graph(P, self.frame, self.show_integer_points)
 
             optimal_point, optimal_value = P.solve()
 

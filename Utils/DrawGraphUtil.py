@@ -1,6 +1,5 @@
 import tkinter as tk
 
-
 from Line import Line
 from LinearProgram import LinearProgram
 
@@ -11,7 +10,7 @@ import numpy as np
 from Utils import Utils2D
 
 
-def draw_graph(lin_prog: LinearProgram, frame: tk.Frame):
+def draw_graph(lin_prog: LinearProgram, frame: tk.Frame, show_integer_points):
     assert len(lin_prog.minimize_function) == 2
 
     fig = Figure(figsize=(7, 5))
@@ -29,8 +28,9 @@ def draw_graph(lin_prog: LinearProgram, frame: tk.Frame):
     max_x, max_y = __get_max_x_y__(get_lines(lin_prog))  # set the axis
     my_plot.axis([0, max_x + 1, 0, max_y + 1])
 
-    x, y = np.meshgrid(np.arange(0, max_x + 1), np.arange(0, max_y + 1))  # draw all integer points
-    my_plot.scatter(x, y, s=2, c="lightgray")
+    if show_integer_points:
+        x, y = np.meshgrid(np.arange(0, max_x + 1), np.arange(0, max_y + 1))  # draw all integer points
+        my_plot.scatter(x, y, s=2, c="lightgray")
 
     target_line = get_target_function_line(lin_prog)
     my_plot.plot(target_line.get_x(), target_line.get_y(), color="orange")
