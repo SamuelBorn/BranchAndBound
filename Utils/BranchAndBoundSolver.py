@@ -25,8 +25,6 @@ class BranchAndBoundSolver:
         while self.L:
             P: LinearProgram
             P, self.L = self.selection_rule.select(self.L)
-            print("p", P)
-            print("l", len(self.L))
 
             DrawEquationUtil.draw_equations(P, self.frame)
 
