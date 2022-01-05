@@ -28,7 +28,7 @@ Enter the key data of your problem. This includes:
 
 Input of the constraints. Here we enter the numbers of the problem. There is a text field for each variable in each constraint.
 In addition, we can choose between `<=, =, =>`.
-It is also possible to specify a maximization function.
+It is also possible to specify a `max, min` function.
 
 ### 3:
 
