@@ -1,4 +1,4 @@
-# Sonderleistung - Visualisierung des BranchAndBoundVerfahrens
+# Sonderleistung - Visualization of Branch And Bound
 
 This tool is an add-on for my stipendium from the Nassau Central Studies Fund. I developed it in the course of the Operations Research lecture. 
 The tool uses the tkinter as a gui building tool. The logic is implemented in python. Packaged with pyinstaller.
