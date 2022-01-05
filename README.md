@@ -5,7 +5,7 @@ The tool uses the tkinter as a gui building tool. The logic is implemented in py
 
 ## Installation (Windows 10)
 
-1. git clone https://github.com/SamuelBorn/ProcessNodeNetwork.git
+1. Download/clone this repository 
 2. run "Main.exe" 
 
 *Due to the packaging, all imports must be loaded before the program starts. This causes the program to start very slowly.
