@@ -32,8 +32,8 @@ It is also possible to specify a maximization function.
 
 ### 3:
 
-Here the results are specified. Unfortunately, a new window must open for this.
+Here the results are specified. 
 If the problem is two-dimensional, images of the visualizations are also inserted.
 
-
+Unfortunately, a new window must open for this.
 
