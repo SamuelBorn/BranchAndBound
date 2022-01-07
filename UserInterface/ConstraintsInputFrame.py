@@ -31,7 +31,7 @@ class ConstraintsInputFrame(tk.Frame):
             target_function_entry = tk.Entry(self, width=4)
             target_function_entry.grid(row=1, column=2 * i - 1)
             self.target_function_entries.append(target_function_entry)
-            text = f"x{i - 1}".translate(SUB) if i == num_vars else f"x{i - 1} + ".translate(SUB)
+            text = f"x{i}".translate(SUB) if i == num_vars else f"x{i} + ".translate(SUB)
             target_function_label = tk.Label(self, text=text)
             target_function_label.grid(row=1, column=2 * i)
 
@@ -44,7 +44,7 @@ class ConstraintsInputFrame(tk.Frame):
                 constraint_entry.grid(row=row + 2, column=2 * column + 1, pady=3)
                 self.constraint_entries[row].append(constraint_entry)
 
-                text = f"x{column}".translate(SUB) if column == num_vars - 1 else f"x{column} + ".translate(SUB)
+                text = f"x{column+1}".translate(SUB) if column == num_vars - 1 else f"x{column+1} + ".translate(SUB)
                 constraint_label = tk.Label(self, text=text)
                 constraint_label.grid(row=row + 2, column=2 * column + 2)
 

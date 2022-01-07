@@ -19,16 +19,16 @@ def get_target_function(lin_prog) -> str:
         ret += "max "
         for idx, parameter in enumerate(lin_prog.minimize_function[:-1]):
             ret += f"{-1 * parameter}"
-            ret += f"x{idx} + ".translate(SUB)
+            ret += f"x{idx + 1} + ".translate(SUB)
         ret += f"{-1 * lin_prog.minimize_function[-1]}"
-        ret += f"x{len(lin_prog.minimize_function) - 1}".translate(SUB)
+        ret += f"x{len(lin_prog.minimize_function)}".translate(SUB)
     else:
         ret += "min "
         for idx, parameter in enumerate(lin_prog.minimize_function[:-1]):
             ret += f"{parameter}"
-            ret += f"x{idx} + ".translate(SUB)
+            ret += f"x{idx + 1} + ".translate(SUB)
         ret += f"{lin_prog.minimize_function[-1]}"
-        ret += f"x{len(lin_prog.minimize_function) - 1}".translate(SUB)
+        ret += f"x{len(lin_prog.minimize_function)}".translate(SUB)
     ret += "\n"
     return ret
 
@@ -38,9 +38,9 @@ def get_constraints(lin_prog: LinearProgram) -> str:
     for constraint in lin_prog.constraints:
         for idx, parameter in enumerate(constraint[:-2]):
             ret += f"{parameter}"
-            ret += f"x{idx} + ".translate(SUB)
+            ret += f"x{idx + 1} + ".translate(SUB)
         ret += f"{constraint[-2]}"
-        ret += f"x{len(constraint) - 2}".translate(SUB)
+        ret += f"x{len(constraint) - 1}".translate(SUB)
         ret += " <= "
         ret += f"{constraint[-1]}"
         ret += "\n"
@@ -49,5 +49,5 @@ def get_constraints(lin_prog: LinearProgram) -> str:
 
 def draw_int_vec(vec, frame):
     for idx, num in enumerate(vec):
-        var_str = f"x{idx}".translate(SUB)
+        var_str = f"x{idx+1}".translate(SUB)
         tk.Label(frame, text=f"{var_str} = {round(num)}").pack()
