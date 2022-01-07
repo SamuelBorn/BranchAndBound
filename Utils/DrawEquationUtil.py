@@ -9,6 +9,11 @@ def draw_equations(lin_prog: LinearProgram, frame: tk.Frame):
     equations = get_target_function(lin_prog)
     equations += get_constraints(lin_prog)
 
+    x = lin_prog.solve()
+    o = tuple([round(y, 2) for y in x[0]])
+    equations += f"\nOptimaler relaxierter Punkt: {o}\n"
+    equations += f"Optimaler relaxierter Wert: {round(x[1], 2)}"
+
     lab = tk.Label(frame, text=equations, bg="white")
     lab.pack()
 
@@ -49,5 +54,5 @@ def get_constraints(lin_prog: LinearProgram) -> str:
 
 def draw_int_vec(vec, frame):
     for idx, num in enumerate(vec):
-        var_str = f"x{idx+1}".translate(SUB)
+        var_str = f"x{idx + 1}".translate(SUB)
         tk.Label(frame, text=f"{var_str} = {round(num)}", bg="white").pack()
