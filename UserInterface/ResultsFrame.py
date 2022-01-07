@@ -12,7 +12,6 @@ class ResultsFrame(tk.Frame):
 
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
-
         # create a canvas object and a vertical scrollbar for scrolling it
         v_scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL)
         v_scrollbar.pack(fill=tk.Y, side=tk.RIGHT, expand=tk.FALSE)
@@ -27,6 +26,7 @@ class ResultsFrame(tk.Frame):
 
         # create a frame inside the canvas which will be scrolled with it
         self.interior = interior = tk.Frame(canvas)
+        interior.configure(bg="white")
         interior_id = canvas.create_window(0, 0, window=interior, anchor=tk.NW)
 
         # track changes to the canvas and frame width and sync them,

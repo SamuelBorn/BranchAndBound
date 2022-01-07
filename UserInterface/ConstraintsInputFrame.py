@@ -72,6 +72,7 @@ class ConstraintsInputFrame(tk.Frame):
             return
 
         y = tk.Tk()
+        y.configure(bg="red")
         y.geometry("800x800")
         x = ResultsFrame(y)
 

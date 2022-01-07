@@ -9,7 +9,7 @@ def draw_equations(lin_prog: LinearProgram, frame: tk.Frame):
     equations = get_target_function(lin_prog)
     equations += get_constraints(lin_prog)
 
-    lab = tk.Label(frame, text=equations)
+    lab = tk.Label(frame, text=equations, bg="white")
     lab.pack()
 
 
@@ -50,4 +50,4 @@ def get_constraints(lin_prog: LinearProgram) -> str:
 def draw_int_vec(vec, frame):
     for idx, num in enumerate(vec):
         var_str = f"x{idx+1}".translate(SUB)
-        tk.Label(frame, text=f"{var_str} = {round(num)}").pack()
+        tk.Label(frame, text=f"{var_str} = {round(num)}", bg="white").pack()

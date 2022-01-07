@@ -57,22 +57,23 @@ class BranchAndBoundSolver:
         o = self.was_max_factor * self.Fl
         l = round(o) if Utils2D.almost_integer(o) else o
         tk.Label(self.frame, text=f"\n\n\n\nDer optimale ganzzahlige Wert ist:     {l}",
-                 font='Helvetica 14 bold').pack()
+                 font='Helvetica 14 bold', bg="white").pack()
         DrawEquationUtil.draw_int_vec(self.opt, self.frame)
+        tk.Label(self.frame, text="\n", bg="white").pack()
 
     def ausgelotet(self, optimal_point, optimal_value):
         if optimal_point is None:
-            tk.Label(self.frame, text=f"ausgelotet, da Lösungsmenge leer").pack()
+            tk.Label(self.frame, text=f"ausgelotet, da Lösungsmenge leer", bg="white").pack()
             return True
 
         if optimal_value >= self.Fl:
-            tk.Label(self.frame, text=f"ausgelotet, da {optimal_value} >= bisheriger bester Wert {self.Fl} ist").pack()
+            tk.Label(self.frame, text=f"ausgelotet, da {optimal_value} >= bisheriger bester Wert {self.Fl} ist", bg="white").pack()
             return True
 
         if Utils2D.is_integer_vector(optimal_point):
             self.Fl = optimal_value
             self.opt = optimal_point
-            tk.Label(self.frame, text=f"ausgelotet, da neuer ganzzahliger Punkt gefunden wurde").pack()
+            tk.Label(self.frame, text=f"ausgelotet, da neuer ganzzahliger Punkt gefunden wurde", bg="white").pack()
             return True
 
         return False
