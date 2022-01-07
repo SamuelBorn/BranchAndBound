@@ -51,6 +51,9 @@ class BranchAndBoundSolver:
                             LinearProgram(P.constraints + [new_lower_constraint], P.minimize_function, P.was_maximize))
                         break
 
+            h_line = "_" * 200
+            tk.Label(self.frame, text=h_line, font='Helvetica 30 bold', fg="black", bg="white").pack()
+
         o = self.was_max_factor * self.Fl
         l = round(o) if Utils2D.almost_integer(o) else o
         tk.Label(self.frame, text=f"\n\n\n\nDer optimale ganzzahlige Wert ist:     {l}",
