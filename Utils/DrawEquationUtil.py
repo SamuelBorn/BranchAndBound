@@ -10,9 +10,13 @@ def draw_equations(lin_prog: LinearProgram, frame: tk.Frame):
     equations += get_constraints(lin_prog)
 
     x = lin_prog.solve()
-    o = tuple([round(y, 2) for y in x[0]])
-    equations += f"\nOptimaler relaxierter Punkt: {o}\n"
-    equations += f"Optimaler relaxierter Wert: {round(x[1], 2)}"
+    print(x)
+    if x[0] is not None:
+        o = tuple([round(y, 2) for y in x[0]])
+        equations += f"\nOptimaler relaxierter Punkt: {o}\n"
+        equations += f"Optimaler relaxierter Wert: {round(x[1], 2)}"
+    else:
+        equations += "\n Die Lösungsmenge des relaxierten Problems ist leer."
 
     lab = tk.Label(frame, text=equations, bg="white")
     lab.pack()
