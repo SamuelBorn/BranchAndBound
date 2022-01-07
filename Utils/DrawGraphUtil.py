@@ -37,6 +37,10 @@ def draw_graph(lin_prog: LinearProgram, frame: tk.Frame, show_integer_points):
         x, y = np.meshgrid(np.arange(0, max_x + 1), np.arange(0, max_y + 1))  # draw all integer points
         my_plot.scatter(x, y, s=10, c="black")
 
+    point, _ = lin_prog.solve()
+    if point is not None:
+        my_plot.scatter(point[0], point[1], s=45, c="#ff5e00")
+
     FigureCanvasTkAgg(fig, master=frame).get_tk_widget().pack(fill=tk.BOTH)  # add image to frame
 
 

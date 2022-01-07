@@ -10,7 +10,6 @@ def draw_equations(lin_prog: LinearProgram, frame: tk.Frame):
     equations += get_constraints(lin_prog)
 
     x = lin_prog.solve()
-    print(x)
     if x[0] is not None:
         o = tuple([round(y, 2) for y in x[0]])
         equations += f"\nOptimaler relaxierter Punkt: {o}\n"
