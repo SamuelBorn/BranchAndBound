@@ -27,15 +27,15 @@ def draw_graph(lin_prog: LinearProgram, frame: tk.Frame, show_integer_points):
         my_plot.plot(line.get_x(), line.get_y(), color="gray")
         # my_plot.plot(line.second_point(), line.first_point(), color="gray")
 
+    target_line = get_target_function_line(lin_prog)
+    my_plot.plot(target_line.get_x(), target_line.get_y(), color="orange")
+
     max_x, max_y = __get_max_x_y__(get_lines(lin_prog))  # set the axis
     my_plot.axis([0, max_x + 1, 0, max_y + 1])
 
     if show_integer_points:
         x, y = np.meshgrid(np.arange(0, max_x + 1), np.arange(0, max_y + 1))  # draw all integer points
-        my_plot.scatter(x, y, s=2, c="lightgray")
-
-    target_line = get_target_function_line(lin_prog)
-    my_plot.plot(target_line.get_x(), target_line.get_y(), color="orange")
+        my_plot.scatter(x, y, s=10, c="black")
 
     FigureCanvasTkAgg(fig, master=frame).get_tk_widget().pack(fill=tk.BOTH)  # add image to frame
 
