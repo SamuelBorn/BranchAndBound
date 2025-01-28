@@ -1,4 +1,4 @@
-# Sonderleistung - Visualization of Branch And Bound
+# Visualization of Branch And Bound
 
 This tool visualizes the Branch And Bound algorithm for solving integer optimization problems.
 
