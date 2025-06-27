@@ -39,3 +39,9 @@ If the problem is two-dimensional, images of the visualizations are also inserte
 
 Unfortunately, a new window must open for this.
 
+
+## Example of a solving step
+
+![image](https://github.com/user-attachments/assets/ea64bb7a-dfba-434d-89b5-799c29944798)
+
+
